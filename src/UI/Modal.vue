@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" activator="parent" width="auto">
+  <v-dialog v-model="dialog" activator="parent" width="450">
     <slot />
   </v-dialog>
 </template>

@@ -14,3 +14,9 @@ import AppHeader from "@/modules/Header/AppHeader.vue";
 import AppTable from "@/modules/AppTable/AppTable.vue";
 import BtnSecondary from "@/UI/button/Secondary.vue";
 </script>
+
+<style>
+* {
+  border-radius: 0 !important;
+}
+</style>

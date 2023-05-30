@@ -2,7 +2,7 @@
   <div class="table-wrapper">
     <v-data-table style="font-size: 14px;" sort-asc-icon="mdi-arrow-up" color="success" sort-desc-icon="mdi-arrow-down"
       flat v-model:items-per-page="itemsPerPage" :loading="!store.clients.length" :headers="headers"
-      :items="store.clients" item-value="name" class="elevation-0 rounded-0">
+      :items="store.clients" item-value="name" class="elevation-0 ">
 
       <!--eslint-disable-next-line vue/valid-v-slot-->
       <template v-slot:item.createdAt="{ item }">
@@ -30,14 +30,18 @@
       <!--eslint-disable-next-line vue/valid-v-slot-->
       <template v-slot:item.actions="{ item }">
         <td class="d-flex">
-          <v-btn prepend-icon="mdi-pencil rounded-0" class="text-capitalize" style="font-weight: 400;" variant="text">
+          <v-btn prepend-icon="mdi-pencil " class="text-capitalize" style="font-weight: 400;" variant="text">
             Edit
+            <Modal>
+              <ModalContent :clientData="item.columns" mode="edit" title="Edit client" />
+            </Modal>
             <template v-slot:prepend>
               <v-icon color="primary" />
             </template>
           </v-btn>
           <v-btn prepend-icon="mdi-delete " class="text-capitalize" style="font-weight: 400;" variant="text">
             Delete
+
             <template v-slot:prepend>
               <v-icon color="red" />
             </template>
@@ -70,6 +74,8 @@ import { ref, Ref } from "vue";
 import { VDataTable } from "vuetify/lib/labs/components.mjs";
 import { useTableStore } from "@/modules/AppTable/store/table";
 import getKey from "@/modules/AppTable/helpers/getKey"
+import Modal from "@/UI/Modal.vue"
+import ModalContent from "@/modules/ModalContent/ModalContent.vue";
 
 const store = useTableStore()
 
