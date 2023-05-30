@@ -1,7 +1,8 @@
 <template>
   <div class="table-wrapper">
-    <v-data-table flat v-model:items-per-page="itemsPerPage" :headers="headers" :items="clients" item-value="name"
-      class="elevation-0 rounded">
+    <v-data-table sort-asc-icon="mdi-arrow-up" color="success" sort-desc-icon="mdi-arrow-down" flat
+      v-model:items-per-page="itemsPerPage" :headers="headers" :items="clients" item-value="name"
+      class="elevation-0 rounded-0">
     </v-data-table>
   </div>
 
@@ -26,6 +27,9 @@
 <script setup lang="ts">
 import { ref, Ref } from "vue";
 import { VDataTable } from "vuetify/lib/labs/components.mjs";
+import { useTableStore } from "@/modules/AppTable/store/table";
+
+const store = useTableStore()
 
 const itemsPerPage: Ref<number> = ref(5);
 const headers = ref([
