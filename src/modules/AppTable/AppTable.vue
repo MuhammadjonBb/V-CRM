@@ -1,8 +1,8 @@
 <template>
   <div class="table-wrapper">
     <v-data-table sort-asc-icon="mdi-arrow-up" color="success" sort-desc-icon="mdi-arrow-down" flat
-      v-model:items-per-page="itemsPerPage" :headers="headers" :items="clients" item-value="name"
-      class="elevation-0 rounded-0">
+      v-model:items-per-page="itemsPerPage" :loading="!store.clients.length" :headers="headers" :items="store.clients"
+      item-value="name" class="elevation-0 rounded-0">
     </v-data-table>
   </div>
 
@@ -46,17 +46,17 @@ const headers = ref([
     key: 'name',
   },
   {
-    title: 'Date and time of creation',
+    title: 'Created At',
     align: 'start',
     sortable: true,
-    key: 'created',
+    key: 'createdAt',
   },
-  {
-    title: 'Last update',
-    align: 'start',
-    sortable: true,
-    key: 'updated',
-  },
+  // {
+  //   title: 'Last update',
+  //   align: 'start',
+  //   sortable: true,
+  //   key: 'updated',
+  // },
   {
     title: 'Contacts',
     align: 'start',
@@ -72,216 +72,6 @@ const headers = ref([
 
 ])
 
-const clients = ref([
-  {
-    id: 1,
-    name: 'John Doe',
-    created: '2020-01-01',
-    updated: '2020-01-01',
-    contacts: [
-      {
-        id: 1,
-        type: 'phone',
-        value: '+1 (234) 567-89-10',
-      }
-    ]
-  },
-  {
-    id: 2,
-    name: 'John Doe',
-    created: '2020-01-01',
-    updated: '2020-01-01',
-    contacts: [
-      {
-        id: 1,
-        type: 'phone',
-        value: '+1 (234) 567-89-10',
-      }
-    ]
-  },
-  {
-    id: 1,
-    name: 'John Doe',
-    created: '2020-01-01',
-    updated: '2020-01-01',
-    contacts: [
-      {
-        id: 1,
-        type: 'phone',
-        value: '+1 (234) 567-89-10',
-      }
-    ]
-  },
-  {
-    id: 2,
-    name: 'John Doe',
-    created: '2020-01-01',
-    updated: '2020-01-01',
-    contacts: [
-      {
-        id: 1,
-        type: 'phone',
-        value: '+1 (234) 567-89-10',
-      }
-    ]
-  },
-  {
-    id: 1,
-    name: 'John Doe',
-    created: '2020-01-01',
-    updated: '2020-01-01',
-    contacts: [
-      {
-        id: 1,
-        type: 'phone',
-        value: '+1 (234) 567-89-10',
-      }
-    ]
-  },
-  {
-    id: 2,
-    name: 'John Doe',
-    created: '2020-01-01',
-    updated: '2020-01-01',
-    contacts: [
-      {
-        id: 1,
-        type: 'phone',
-        value: '+1 (234) 567-89-10',
-      }
-    ]
-  },
-  {
-    id: 1,
-    name: 'John Doe',
-    created: '2020-01-01',
-    updated: '2020-01-01',
-    contacts: [
-      {
-        id: 1,
-        type: 'phone',
-        value: '+1 (234) 567-89-10',
-      }
-    ]
-  },
-  {
-    id: 123455,
-    name: 'John Doe',
-    created: '2020-01-01',
-    updated: '2020-01-01',
-    contacts: [
-      {
-        id: 1,
-        type: 'phone',
-        value: '+1 (234) 567-89-10',
-      }
-    ]
-  },
-  {
-    id: 1,
-    name: 'John Doe',
-    created: '2020-01-01',
-    updated: '2020-01-01',
-    contacts: [
-      {
-        id: 1,
-        type: 'phone',
-        value: '+1 (234) 567-89-10',
-      }
-    ]
-  },
-  {
-    id: 2,
-    name: 'John Doe',
-    created: '2020-01-01',
-    updated: '2020-01-01',
-    contacts: [
-      {
-        id: 1,
-        type: 'phone',
-        value: '+1 (234) 567-89-10',
-      }
-    ]
-  },
-  {
-    id: 1,
-    name: 'John Doe',
-    created: '2020-01-01',
-    updated: '2020-01-01',
-    contacts: [
-      {
-        id: 1,
-        type: 'phone',
-        value: '+1 (234) 567-89-10',
-      }
-    ]
-  },
-  {
-    id: 2,
-    name: 'John Doe',
-    created: '2020-01-01',
-    updated: '2020-01-01',
-    contacts: [
-      {
-        id: 1,
-        type: 'phone',
-        value: '+1 (234) 567-89-10',
-      }
-    ]
-  },
-  {
-    id: 1,
-    name: 'John Doe',
-    created: '2020-01-01',
-    updated: '2020-01-01',
-    contacts: [
-      {
-        id: 1,
-        type: 'phone',
-        value: '+1 (234) 567-89-10',
-      }
-    ]
-  },
-  {
-    id: 2,
-    name: 'John Doe',
-    created: '2020-01-01',
-    updated: '2020-01-01',
-    contacts: [
-      {
-        id: 1,
-        type: 'phone',
-        value: '+1 (234) 567-89-10',
-      }
-    ]
-  },
-  {
-    id: 1,
-    name: 'John Doe',
-    created: '2020-01-01',
-    updated: '2020-01-01',
-    contacts: [
-      {
-        id: 1,
-        type: 'phone',
-        value: '+1 (234) 567-89-10',
-      }
-    ]
-  },
-  {
-    id: 123455,
-    name: 'John Doe',
-    created: '2020-01-01',
-    updated: '2020-01-01',
-    contacts: [
-      {
-        id: 1,
-        type: 'phone',
-        value: '+1 (234) 567-89-10',
-      }
-    ]
-  }
-])
 </script>
 
 <style>

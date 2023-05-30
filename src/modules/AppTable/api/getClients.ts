@@ -1,12 +1,28 @@
-import { doc, getDoc } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebase";
+import beautifyDate from "@/modules/AppTable/helpers/beautifyDate";
 
-const docRef = doc(db, "clients");
-const docSnap = await getDoc(docRef);
 
-if (docSnap.exists()) {
-  console.log("Document data:", docSnap.data());
-} else {
-  // docSnap.data() will be undefined in this case
-  console.log("No such document!");
+interface IClient {
+  id: string;
+  name: string;
+  createdAt: [string, string];
+  contacts: object;
+}
+
+
+export async function getClients(): Promise<IClient[]> {
+  const querySnapshot = await getDocs(collection(db, "clients"));
+  const clients: IClient[] = [];
+
+  querySnapshot.forEach((doc) => {
+    clients.push({
+      id: doc.id,
+      name: doc.data().name,
+      createdAt: beautifyDate(doc.data().createdAt),
+      contacts: doc.data().contacts
+    })
+  });
+
+  return clients
 }
