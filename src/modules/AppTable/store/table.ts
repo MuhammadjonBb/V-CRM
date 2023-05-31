@@ -1,6 +1,6 @@
 // Utilities
 import { defineStore } from 'pinia'
-import { getClients } from '../api/getClients';
+import { getClients } from '@/modules/AppTable/api/getClients';
 import { Ref, ref } from 'vue'
 
 interface IClient {
@@ -13,11 +13,14 @@ interface IClient {
 export const useTableStore = defineStore('table', () => {
   const clients: Ref<IClient[]> = ref([]);
 
-  getClients().then((data: IClient[]) => {
-    clients.value = data;
-  })
+  function setClients() {
+    getClients().then((data: IClient[]) => {
+      clients.value = data;
+    })
+  }
 
   return {
-    clients
+    clients,
+    setClients
   }
 })

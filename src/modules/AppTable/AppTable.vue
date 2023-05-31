@@ -1,8 +1,8 @@
 <template>
   <div class="table-wrapper">
     <v-data-table style="font-size: 14px;" sort-asc-icon="mdi-arrow-up" color="success" sort-desc-icon="mdi-arrow-down"
-      flat v-model:items-per-page="itemsPerPage" :loading="!store.clients.length" :headers="headers"
-      :items="store.clients" item-value="name" class="elevation-0 ">
+      flat :items-per-page="10" :loading="!store.clients.length" :headers="headers" :items="store.clients"
+      item-value="name" class="elevation-0 ">
 
       <!--eslint-disable-next-line vue/valid-v-slot-->
       <template v-slot:item.createdAt="{ item }">
@@ -74,10 +74,10 @@ import { useTableStore } from "@/modules/AppTable/store/table";
 import removeCharc from "@/modules/AppTable/helpers/removeCharc"
 import Modal from "@/UI/Modal.vue"
 import ModalContent from "@/modules/ModalContent/ModalContent.vue";
+import { onMounted } from "vue";
 
 const store = useTableStore()
 
-const itemsPerPage: Ref<number> = ref(5);
 const headers = ref([
   {
     title: 'ID',
@@ -111,6 +111,10 @@ const headers = ref([
   },
 
 ])
+
+onMounted(() => {
+  store.setClients()
+})
 
 </script>
 

@@ -1,3 +1,3 @@
-export default function hasProps(obj: object): boolean {
-  return Object.keys(obj).length > 0;
+export default function hasProps(arr: []): boolean {
+  return arr.length > 0;
 }

@@ -14,7 +14,7 @@
 
     <AddContactBolck :contacts="clientInfo.contacts" @update:contacts="setClientContact" />
 
-    <Primary class="px-9 mt-5 mx-auto" size="large" label="save" />
+    <Primary class="px-9 mt-5 mx-auto" size="large" label="save" @click="onSave" />
 
   </v-card>
 </template>
@@ -24,6 +24,10 @@ import { ref, Ref, onMounted } from "vue";
 import ModalInput from "@/modules/ModalContent/components/ModalInput.vue";
 import AddContactBolck from "@/modules/ModalContent/components/AddContactBolck.vue";
 import Primary from "@/UI/button/Primary.vue";
+import addClient from "@/modules/ModalContent/api/addClient";
+import { useTableStore } from "@/modules/AppTable/store/table";
+
+const { setClients } = useTableStore()
 
 const props = defineProps({
   title: String,
@@ -34,7 +38,8 @@ const props = defineProps({
 const clientInfo = ref({
   name: "",
   surname: "",
-  contacts: props.clientData.contacts,
+  contacts: props.clientData.contacts || [],
+  createdAt: Date.now()
 })
 
 onMounted(() => {
@@ -47,6 +52,15 @@ onMounted(() => {
 
 function setClientContact(data: any) {
   clientInfo.value.contacts = data;
+}
+
+function onSave() {
+  if (props.mode === "create") {
+    addClient(clientInfo.value).then(data => {
+      console.log(data);
+      setClients()
+    })
+  }
 }
 </script>
 

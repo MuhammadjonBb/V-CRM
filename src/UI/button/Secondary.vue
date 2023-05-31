@@ -1,7 +1,8 @@
 <template>
-  <v-btn variant="outlined" :prepend-icon="icon" size="large" rounded="0" color="primary" class="px-10 text-capitalize">{{
-    label
-  }}</v-btn>
+  <v-btn variant="outlined" :prepend-icon="icon" size="large" rounded="0" color="primary" class="px-10 text-capitalize">
+    {{ label }}
+    <slot></slot>
+  </v-btn>
 </template>
 
 <script setup lang="ts">
