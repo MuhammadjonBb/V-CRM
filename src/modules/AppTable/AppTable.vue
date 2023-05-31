@@ -20,9 +20,7 @@
       <template v-slot:item.contacts="{ item }">
         <td class="d-flex" style="flex-wrap: wrap; gap: 3px;">
           <v-chip v-for="(value, index) in item.columns.contacts" density="compact" color="primary" :key="index" small>
-            {{ index }}
-            {{ getKey(item.columns.contacts, index) }}:
-            {{ value }}
+            {{ removeCharc(JSON.stringify(value)) }}
           </v-chip>
         </td>
       </template>
@@ -73,7 +71,7 @@
 import { ref, Ref } from "vue";
 import { VDataTable } from "vuetify/lib/labs/components.mjs";
 import { useTableStore } from "@/modules/AppTable/store/table";
-import getKey from "@/modules/AppTable/helpers/getKey"
+import removeCharc from "@/modules/AppTable/helpers/removeCharc"
 import Modal from "@/UI/Modal.vue"
 import ModalContent from "@/modules/ModalContent/ModalContent.vue";
 
@@ -91,7 +89,7 @@ const headers = ref([
     title: 'Full Name',
     align: 'start',
     sortable: true,
-    key: 'name',
+    key: 'fullname',
   },
   {
     title: 'Created At',
@@ -99,12 +97,6 @@ const headers = ref([
     sortable: true,
     key: 'createdAt',
   },
-  // {
-  //   title: 'Last update',
-  //   align: 'start',
-  //   sortable: true,
-  //   key: 'updated',
-  // },
   {
     title: 'Contacts',
     align: 'start',

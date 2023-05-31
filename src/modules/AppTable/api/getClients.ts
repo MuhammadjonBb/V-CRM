@@ -5,7 +5,7 @@ import beautifyDate from "@/modules/AppTable/helpers/beautifyDate";
 
 interface IClient {
   id: string;
-  name: string;
+  fullname: string;
   createdAt: [string, string];
   contacts: object;
 }
@@ -18,7 +18,7 @@ export async function getClients(): Promise<IClient[]> {
   querySnapshot.forEach((doc) => {
     clients.push({
       id: doc.id,
-      name: doc.data().name,
+      fullname: `${doc.data().name} ${doc.data().surname}`,
       createdAt: beautifyDate(doc.data().createdAt),
       contacts: doc.data().contacts
     })

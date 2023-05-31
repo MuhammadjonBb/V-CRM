@@ -9,11 +9,10 @@
 
     <div class="input-group px-9">
       <ModalInput v-model="clientInfo.name" label="Name" />
-      <ModalInput v-model="clientInfo.name" label="Surname" :mode="mode" />
-      <ModalInput v-model="clientInfo.name" label="Lastname" :mode="mode" />
+      <ModalInput v-model="clientInfo.surname" label="Surname" :mode="mode" />
     </div>
 
-    <AddContactBolck :contacts="clientInfo.contacts" />
+    <AddContactBolck :contacts="clientInfo.contacts" @update:contacts="setClientContact" />
 
     <Primary class="px-9 mt-5 mx-auto" size="large" label="save" />
 
@@ -21,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, Ref } from "vue";
+import { ref, Ref, onMounted } from "vue";
 import ModalInput from "@/modules/ModalContent/components/ModalInput.vue";
 import AddContactBolck from "@/modules/ModalContent/components/AddContactBolck.vue";
 import Primary from "@/UI/button/Primary.vue";
@@ -35,8 +34,19 @@ const props = defineProps({
 const clientInfo = ref({
   name: "",
   surname: "",
-  lastname: "",
-  contacts: {},
+  contacts: props.clientData.contacts,
 })
+
+onMounted(() => {
+  if (props.mode === "edit") {
+    const fullname = (props.clientData.fullname).split(" ");
+    clientInfo.value.name = fullname[0];
+    clientInfo.value.surname = fullname[1];
+  }
+})
+
+function setClientContact(data: any) {
+  clientInfo.value.contacts = data;
+}
 </script>
 

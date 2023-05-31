@@ -5,7 +5,7 @@ import { Ref, ref } from 'vue'
 
 interface IClient {
   id: string;
-  name: string;
+  fullname: string;
   createdAt: [string, string];
   contacts: object;
 }
