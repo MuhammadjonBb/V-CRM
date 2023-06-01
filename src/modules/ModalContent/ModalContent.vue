@@ -26,6 +26,7 @@ import AddContactBolck from "@/modules/ModalContent/components/AddContactBolck.v
 import Primary from "@/UI/button/Primary.vue";
 import addClient from "@/modules/ModalContent/api/addClient";
 import { useTableStore } from "@/modules/AppTable/store/table";
+import updateClient from "@/modules/AppTable/api/updateClient";
 
 const { setClients } = useTableStore()
 
@@ -33,9 +34,12 @@ const props = defineProps({
   title: String,
   clientData: Object,
   mode: String,
+  modal: Boolean
 })
+const emit = defineEmits(["update:modal"])
 
 const clientInfo = ref({
+  id: props.clientData.id,
   name: "",
   surname: "",
   contacts: props.clientData.contacts || [],
@@ -57,7 +61,13 @@ function setClientContact(data: any) {
 function onSave() {
   if (props.mode === "create") {
     addClient(clientInfo.value).then(data => {
-      console.log(data);
+      emit("update:modal", false)
+      setClients()
+    })
+  } else if (props.mode === "edit") {
+    console.log(props.clientData);
+    updateClient(clientInfo.value).then(data => {
+      emit("update:modal", false)
       setClients()
     })
   }

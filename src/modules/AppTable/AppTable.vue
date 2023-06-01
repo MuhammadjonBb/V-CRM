@@ -30,15 +30,27 @@
         <td class="d-flex">
           <v-btn prepend-icon="mdi-pencil " class="text-capitalize" style="font-weight: 400;" variant="text">
             Edit
-            <Modal>
-              <ModalContent :clientData="item.columns" mode="edit" title="Edit client" />
-            </Modal>
+            <v-dialog v-model="modal[item.columns.id + 'edit']" activator="parent" width="450">
+
+              <ModalContent @update:modal="modal[item.columns.id + 'edit'] = $event" :clientData="item.columns"
+                mode="edit" title="Edit client" />
+            </v-dialog>
             <template v-slot:prepend>
               <v-icon color="primary" />
             </template>
           </v-btn>
+
           <v-btn prepend-icon="mdi-delete " class="text-capitalize" style="font-weight: 400;" variant="text">
             Delete
+
+            <v-dialog v-model="modal[item.columns.id + 'del']" activator="parent" width="450">
+              <v-card class="py-6 px-9 text-center">
+                <v-card-title class="">Delete client</v-card-title>
+                <v-card-text class="py-1 mb-3">Are you sure you want to delete this client?</v-card-text>
+                <Primary class="d-flex align-self-center px-7 py-5" size="large" label="Delete"
+                  @click="deleteClient(item.columns.id)" />
+              </v-card>
+            </v-dialog>
 
             <template v-slot:prepend>
               <v-icon color="red" />
@@ -68,15 +80,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref, Ref } from "vue";
+import { ref } from "vue";
 import { VDataTable } from "vuetify/lib/labs/components.mjs";
 import { useTableStore } from "@/modules/AppTable/store/table";
 import removeCharc from "@/modules/AppTable/helpers/removeCharc"
-import Modal from "@/UI/Modal.vue"
 import ModalContent from "@/modules/ModalContent/ModalContent.vue";
 import { onMounted } from "vue";
+import Primary from "@/UI/button/Primary.vue";
+import deleteClientReq from "@/modules/AppTable/api/deleteClient";
+
 
 const store = useTableStore()
+const modal = ref({
+})
 
 const headers = ref([
   {
@@ -116,6 +132,12 @@ onMounted(() => {
   store.setClients()
 })
 
+function deleteClient(id: string) {
+  deleteClientReq(id).then(() => {
+    modal.value[id + 'del'] = false
+    store.setClients()
+  })
+}
 </script>
 
 <style>
