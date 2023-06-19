@@ -2,7 +2,6 @@
   <AppHeader />
   <v-main>
     <v-container fill-height class="pt-16">
-      <h1 class="mb-6">Clients</h1>
       <AppTable />
       <BtnSecondary label="Add Client" icon="mdi-account-multiple-plus" class="mx-auto d-flex mt-15">
 

@@ -60,13 +60,17 @@ function setClientContact(data: any) {
 
 function onSave() {
   if (props.mode === "create") {
-    addClient(clientInfo.value).then(data => {
+    const clientPostInfo = {
+      name: clientInfo.value.name,
+      surname: clientInfo.value.surname,
+      contacts: clientInfo.value.contacts
+    }
+    addClient(clientPostInfo).then(() => {
       emit("update:modal", false)
       setClients()
     })
   } else if (props.mode === "edit") {
-    console.log(props.clientData);
-    updateClient(clientInfo.value).then(data => {
+    updateClient(clientInfo.value).then(() => {
       emit("update:modal", false)
       setClients()
     })
